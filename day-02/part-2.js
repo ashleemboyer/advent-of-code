@@ -41,7 +41,7 @@ const runTests = () => {
 
   console.log("Tests");
 
-  testValues.map(({ expected, input }, i) => {
+  testValues.forEach(({ expected, input }, i) => {
     const pass = JSON.stringify(runIntcode(input)) === JSON.stringify(expected);
     console.log(`  Test ${i + 1} ${pass ? "passed 🎉" : "failed 😢"}!`);
   });
