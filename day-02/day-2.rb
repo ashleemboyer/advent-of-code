@@ -33,4 +33,14 @@ def part_1
   run_instructions(12, 2)
 end
 
+def part_2
+  (0..99).each { |noun|
+    (0..99).each { |verb|
+      result = run_instructions(noun, verb)
+      return {noun: noun, verb: verb} if result == 19690720
+    }
+  }
+end
+
 puts "Part 1: #{part_1}"
+puts "Part 2: #{part_2[:noun]}#{part_2[:verb]}"
