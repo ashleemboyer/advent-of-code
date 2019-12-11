@@ -1,32 +1,36 @@
-def part_1
+def run_instructions(noun, verb)
   input = File.open("input.txt") { |f| f.readline }
-  nums = input.split(",").map { |n| n.to_i }
+  instructions = input.split(",").map { |n| n.to_i }
 
-  nums[1] = 12
-  nums[2] = 2
+  instructions[1] = noun
+  instructions[2] = verb
 
-  index = 0
-  opcode = nums[index]
-  cant_run = index == nums.length || opcode == 99
+  instruction_pointer = 0
+  opcode = instructions[instruction_pointer]
+  cant_run = instruction_pointer == instructions.length || opcode == 99
 
   until cant_run do
-    input_1_position = nums[index + 1]
-    input_2_position = nums[index + 2]
-    store_position = nums[index + 3]
+    input_1_address = instructions[instruction_pointer + 1]
+    input_2_address = instructions[instruction_pointer + 2]
+    result_address = instructions[instruction_pointer + 3]
     
-    input_1 = nums[input_1_position]
-    input_2 = nums[input_2_position]
+    input_1 = instructions[input_1_address]
+    input_2 = instructions[input_2_address]
 
-    nums[store_position] = opcode == 1 ?
+    instructions[result_address] = opcode == 1 ?
       input_1 + input_2 :
       input_1 * input_2
 
-    index += 4
-    opcode = nums[index]
-    cant_run = index == nums.length || opcode == 99
+    instruction_pointer += 4
+    opcode = instructions[instruction_pointer]
+    cant_run = instruction_pointer == instructions.length || opcode == 99
   end
 
-  nums[0]
+  instructions[0]
+end
+
+def part_1
+  run_instructions(12, 2)
 end
 
 puts "Part 1: #{part_1}"
