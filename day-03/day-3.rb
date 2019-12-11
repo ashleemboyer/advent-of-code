@@ -36,10 +36,10 @@ def get_intersections(coords_1, coords_2)
     longer = Set.new(coords_1)
     shorter = Set.new(coords_2)
   else
-    longer = Set.new(coords_1)
-    shorter = Set.new(coords_2)
+    longer = Set.new(coords_2)
+    shorter = Set.new(coords_1)
   end
-  
+    
   intersections = Set.new()
   shorter.each { |coord|
     intersections.add(coord) if longer.include? coord
@@ -49,17 +49,26 @@ def get_intersections(coords_1, coords_2)
 end
 
 def part_1
-  File.open("input.txt") { |f|
-    @path_1 = f.readline
-    @path_2 = f.readline
-  }
-
-  coords_1 = get_coords(@path_1)
-  coords_2 = get_coords(@path_2)
-
-  get_intersections(coords_1, coords_2).map { |intersection|
+  @intersections.map { |intersection|
     intersection[0].abs + intersection[1].abs
   }.min
 end
 
+def part_2
+  @intersections.map { |intersection|
+    @coords_1.index(intersection) + @coords_2.index(intersection) + 2
+  }.min
+end
+
+File.open("input.txt") { |f|
+  @input_path_1 = f.readline
+  @input_path_2 = f.readline
+}
+
+@coords_1 = get_coords(@input_path_1)
+@coords_2 = get_coords(@input_path_2)
+
+@intersections = get_intersections(@coords_1, @coords_2)
+
 puts "Part 1: #{part_1}"
+puts "Part 2: #{part_2}"
