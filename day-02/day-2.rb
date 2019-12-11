@@ -43,4 +43,4 @@ def part_2
 end
 
 puts "Part 1: #{part_1}"
-puts "Part 2: #{part_2[:noun]}#{part_2[:verb]}"
+puts "Part 2: #{100 * part_2[:noun] + part_2[:verb]}"
